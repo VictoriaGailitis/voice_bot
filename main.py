@@ -31,3 +31,13 @@ y = []
 for question, answer in dataset[:10000]:
     X_text.append(question)
     y += [answer]
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(X_text)
+clf = LogisticRegression()
+clf.fit(X, y)
+
+def get_generative_replica(text):
+    text_vector = vectorizer.transform([text]).toarray()[0]
+    question = clf.predict([text_vector])[0]
+    return question
