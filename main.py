@@ -41,3 +41,28 @@ def get_generative_replica(text):
     text_vector = vectorizer.transform([text]).toarray()[0]
     question = clf.predict([text_vector])[0]
     return question
+
+def listen():
+    voice_recognizer = sr.Recognizer()
+    voice_recognizer.dynamic_energy_threshold = False
+    voice_recognizer.energy_threshold = 1000
+    voice_recognizer.pause_threshold = 0.5
+    with sr.Microphone() as source:
+        print("Говорите 🎤")
+        audio = voice_recognizer.listen(source, timeout = None, phrase_time_limit = 2)
+    try:
+        voice_text = voice_recognizer.recognize_google(audio, language="ru")
+        print(f"Вы сказали: {voice_text}")
+        return voice_text
+    except sr.UnknownValueError:
+        return "Ошибка распознания"
+    except sr.RequestError:
+        return "Ошибка соединения"
+
+def say(text):
+    voice = gTTS(text, lang="ru")
+    unique_file = "audio_" + str(random.randint(0, 10000)) + ".mp3"
+    voice.save(unique_file)
+    playsound.playsound(unique_file)
+    os.remove(unique_file)
+    print(f"Бот:  {text}")
