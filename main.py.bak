@@ -82,7 +82,7 @@ def stop():
     exit()
 
 def start():
-    print(f"Запуск бота...")
+    print(f"Р—Р°РїСѓСЃРє Р±РѕС‚Р°...")
     while True:
         command = listen()
         handle_command(command)
