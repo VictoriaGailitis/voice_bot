@@ -66,3 +66,26 @@ def say(text):
     playsound.playsound(unique_file)
     os.remove(unique_file)
     print(f"Бот:  {text}")
+def handle_command(command):
+    command = command.lower()
+    if "РїРѕРєР°" in command:
+        stop()
+        return
+    #РјРµСЃС‚Рѕ РґР»СЏ РґРѕРї.РєРѕРјР°РЅРґ место для доп.команд
+    reply = get_generative_replica(command)
+    say(reply)
+
+#РјРµСЃС‚Рѕ РґР»СЏ РґРѕРї.РєРѕРјР°РЅРґ место для доп.команд
+def stop():
+    say("РџРѕРєР°")
+    exit()
+
+def start():
+    print(f"Р—Р°РїСѓСЃРє Р±РѕС‚Р°...")
+    while True:
+        command = listen()
+        handle_command(command)
+try:
+    start()
+except KeyboardInterrupt:
+    stop()
