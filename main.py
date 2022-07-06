@@ -72,11 +72,27 @@ def handle_command(command):
     if "пока" in command:
         stop()
         return
-    #место для доп.команд
+    elif "монетку" in command:
+        head_tails()
+        return
+    elif "час" in command:
+        current_time()
+        return
     reply = get_generative_replica(command)
     say(reply)
 
-#место для доп.команд
+def head_tails():
+    side = random.randint(0,1)
+    if side == 0:
+        say("Орел")
+    else:
+        say("Решка")
+
+def current_time():
+    now = datetime.datetime.now()
+    current_time = now.strftime("%H часов %M минут %S секунд")
+    say(current_time)
+    
 def stop():
     say("Пока")
     exit()
